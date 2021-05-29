@@ -47,10 +47,9 @@ class routes {
   somar(juros, amortizacao) {
     let jr = juros.replace(/\./g, '').replace(/\,/g, '.')
     let amort = amortizacao.replace(/\./g, '').replace(/\,/g, '.')
-    let resultado = Number(jr) + Number(amort)
-    let resultadoS = ''.concat(resultado)
+    let resultado = (Number(jr) + Number(amort)).toString()
 
-    return formataValor(resultadoS)
+    return formataValor(resultado)
   }
 
 
