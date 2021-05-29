@@ -49,13 +49,7 @@ class id {
     await Userdata.findOneAndUpdate({
       modelContrato: dados.modelContrato// req.body.contrato//// procuro este contrato
     }, {
-      prestacoesContrato: ass// e nesta propriedade atualizo com o array que usei local
-    }, (error, data) => {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log(data)
-      }
+      prestacoesContrato.[req.body.i]: ass// e nesta propriedade atualizo com o array que usei local
     })
 
 
