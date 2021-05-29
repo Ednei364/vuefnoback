@@ -1,0 +1,9 @@
+{
+    "wathc": [
+        "src"
+    ],
+    "ext": "ts",
+    "execMap": {
+        "ts": "sucrase-node server.ts"
+    }
+}
