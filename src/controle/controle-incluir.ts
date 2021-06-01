@@ -13,10 +13,8 @@ class controleRota {
 
     let result = await erro.verifica(requisicao)
     if (typeof (result) === 'string') return res.status(400).json({ message: 'Contrato não incluso: ' + result })
-    if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado' })
-    const contratos = await Userdata.find({})
-    console.log((contratos).length)
-
+    if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado anteriormente' })
+    const contratos = await Userdata.find({})//retorna todos os contratos já lançados
     let schema_contrato = {
       _id: (contratos).length + 1,
       modelContrato: requisicao.contrato,
@@ -33,7 +31,7 @@ class controleRota {
 
     requisicao.i = 1
     requisicao.NovaData = new Date(requisicao.datadocred)
-    requisicao.dyas = requisicao.NovaData.getTime()//await requisicao.NovaData.setMonth(requisicao.NovaData.getMonth() - 1)
+    requisicao.dyas = requisicao.NovaData.getTime()
     requisicao.dyas2 = await requisicao.NovaData.setMonth(requisicao.NovaData.getMonth() + 1)
 
     await Userdata.create(schema_contrato)

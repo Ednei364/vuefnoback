@@ -12,14 +12,14 @@ class id {
   public async get(req, res) {
     Userdata.findById(req.params.id, (error, userdata) => {
       if (error) {
-        res.send(`erro ao requisitar saldo ${error}`)
+        res.send(`Erro ao localizar Contrato..: ${error}`)
       }
       res.json(userdata)
     })
   }
   /* 
   Altera a parcela atual e a proxima parcela apenas
-  */  
+  */
   public async put(req, res) {
     let ass = []
     let dados;
@@ -31,32 +31,35 @@ class id {
       dados = userdata
       ass = userdata.prestacoesContrato// retorna meu array do banco e atribui nesta let
     })
-    console.log(ass[req.body_id])
+    let antParc = req.body.id
+    let atualParc = req.body.id + 1
+    let proxParc = req.body.id + 2
 
 
     /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
-    ass[req.body.i - 2].empresa = req.body.empresa
-    ass[req.body.i - 2].vencimento = req.body.vencimento
-    ass[req.body.i - 2].dias = funcAlterar.quantDias(ass[req.body.i - 3].vencimento, ass[req.body.i - 2].vencimento)
-    ass[req.body.i - 2].taxaMes = funcAlterar.taxacal(dados.modelTaxa, ass[req.body.i - 2].dias)
-    ass[req.body.i - 2].amortizacao = req.body.amortizacao
-    ass[req.body.i - 2].juros = await funcAlterar.juros(ass[req.body.i - 3].saldo, ass[req.body.i - 2].taxaMes)
-    ass[req.body.i - 2].i = req.body.i
-    ass[req.body.i - 2].Parc = req.body.Parc
-    ass[req.body.i - 2].saldo = req.body.saldo
-    ass[req.body.i - 2].prestacao = await funcAlterar.somar(ass[req.body.i - 2].juros, ass[req.body.i - 2].amortizacao)
+
+    ass[atualParc].empresa = req.body.empresa
+    ass[atualParc].vencimento = req.body.vencimento
+    ass[atualParc].dias = funcAlterar.quantDias(ass[antParc].vencimento, ass[atualParc].vencimento)
+    ass[atualParc].taxaMes = funcAlterar.taxacal(dados.modelTaxa, ass[atualParc].dias)
+    ass[atualParc].amortizacao = req.body.amortizacao
+    ass[atualParc].juros = await funcAlterar.juros(ass[antParc].saldo, ass[atualParc].taxaMes)+ req.body.ajuste
+    ass[atualParc].i = req.body.i
+    ass[atualParc].Parc = req.body.Parc
+    ass[atualParc].saldo = req.body.saldo
+    ass[atualParc].prestacao = await funcAlterar.somar(ass[atualParc].juros, ass[atualParc].amortizacao)
     /* FIM - atualizando parcela atual. PARCELA ATUAL*/
     /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
-    ass[req.body.i - 1].empresa = ass[req.body.i - 1].empresa
-    ass[req.body.i - 1].vencimento = ass[req.body.i - 1].vencimento
-    ass[req.body.i - 1].dias = funcAlterar.quantDias(ass[req.body.i - 2].vencimento, ass[req.body.i - 1].vencimento)
-    ass[req.body.i - 1].taxaMes = funcAlterar.taxacal(dados.modelTaxa, ass[req.body.i - 1].dias)
-    ass[req.body.i - 1].amortizacao = ass[req.body.i - 1].amortizacao
-    ass[req.body.i - 1].juros = await funcAlterar.juros(ass[req.body.i - 2].saldo, ass[req.body.i - 1].taxaMes)
-    ass[req.body.i - 1].i = ass[req.body.i - 1].i
-    ass[req.body.i - 1].Parc = ass[req.body.i - 1].Parc
-    ass[req.body.i - 1].saldo = ass[req.body.i - 1].saldo
-    ass[req.body.i - 1].prestacao = await funcAlterar.somar(ass[req.body.i - 1].juros, ass[req.body.i - 1].amortizacao)
+    ass[proxParc].empresa = ass[proxParc].empresa
+    ass[proxParc].vencimento = ass[proxParc].vencimento
+    ass[proxParc].dias = funcAlterar.quantDias(ass[atualParc].vencimento, ass[proxParc].vencimento)
+    ass[proxParc].taxaMes = funcAlterar.taxacal(dados.modelTaxa, ass[proxParc].dias)
+    ass[proxParc].amortizacao = ass[proxParc].amortizacao
+    ass[proxParc].juros = await funcAlterar.juros(ass[atualParc].saldo, ass[proxParc].taxaMes)
+    ass[proxParc].i = ass[proxParc].i
+    ass[proxParc].Parc = ass[proxParc].Parc
+    ass[proxParc].saldo = ass[proxParc].saldo
+    ass[proxParc].prestacao = await funcAlterar.somar(ass[proxParc].juros, ass[proxParc].amortizacao)
     /* FIM - atualizando parcela atual. PARCELA ATUAL*/
 
 
@@ -69,7 +72,7 @@ class id {
 
 
 
-    res.json(ass[req.body.i - 2])
+    res.json(ass[atualParc])
 
 
   }
