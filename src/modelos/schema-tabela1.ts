@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 
 const Userdatacopy = new Schema(
   {
-    _id: { type: Number, unique: true},   
+    _id: Number,// _id: { type: Number, unique: true},   
     modelContrato: String,
     modelEmpresa: String,
     modelValorFinanciado: String,
@@ -17,7 +17,7 @@ const Userdatacopy = new Schema(
     modelTaxa: String,
     prestacoesContrato: [
       {
-        _id: {type:Number,unique: true},
+        //{type:Number,unique: true},
         empresa: { type: String, required: false, },
         dias: { type: String, required: false, },
         taxaMes: { type: String, required: false, },
@@ -32,7 +32,7 @@ const Userdatacopy = new Schema(
     ]
   },
   {
-    //_id: false,
+    _id: false,
     timestamps: true
   }
 )
