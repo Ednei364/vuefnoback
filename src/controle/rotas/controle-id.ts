@@ -31,36 +31,35 @@ class id {
       dados = userdata
       ass = userdata.prestacoesContrato// retorna meu array do banco e atribui nesta let
     })
-    let antParc = req.body.id
-    let atualParc = req.body.id + 1
-    let proxParc = req.body.id + 2
-
+    let antParc = 0
+    let atualParc = 1
+    let proxParc = 1
 
     /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
 
     ass[atualParc].empresa = req.body.empresa
     ass[atualParc].vencimento = req.body.vencimento
-    ass[atualParc].dias = funcAlterar.quantDias(ass[antParc].vencimento, ass[atualParc].vencimento)
-    ass[atualParc].taxaMes = funcAlterar.taxacal(dados.modelTaxa, ass[atualParc].dias)
+    ass[atualParc].dias = await funcAlterar.quantDias(ass[antParc].vencimento, ass[atualParc].vencimento)
+    ass[atualParc].taxaMes = await funcAlterar.taxacal(dados.modelTaxa, ass[atualParc].dias)
     ass[atualParc].amortizacao = req.body.amortizacao
-    ass[atualParc].juros = await funcAlterar.juros(ass[antParc].saldo, ass[atualParc].taxaMes)+ req.body.ajuste
+    ass[atualParc].juros = await funcAlterar.juros(ass[antParc].saldo, ass[atualParc].taxaMes)// + req.body.ajuste
     ass[atualParc].i = req.body.i
     ass[atualParc].Parc = req.body.Parc
     ass[atualParc].saldo = req.body.saldo
     ass[atualParc].prestacao = await funcAlterar.somar(ass[atualParc].juros, ass[atualParc].amortizacao)
     /* FIM - atualizando parcela atual. PARCELA ATUAL*/
-    /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
-    ass[proxParc].empresa = ass[proxParc].empresa
-    ass[proxParc].vencimento = ass[proxParc].vencimento
-    ass[proxParc].dias = funcAlterar.quantDias(ass[atualParc].vencimento, ass[proxParc].vencimento)
-    ass[proxParc].taxaMes = funcAlterar.taxacal(dados.modelTaxa, ass[proxParc].dias)
-    ass[proxParc].amortizacao = ass[proxParc].amortizacao
-    ass[proxParc].juros = await funcAlterar.juros(ass[atualParc].saldo, ass[proxParc].taxaMes)
-    ass[proxParc].i = ass[proxParc].i
-    ass[proxParc].Parc = ass[proxParc].Parc
-    ass[proxParc].saldo = ass[proxParc].saldo
-    ass[proxParc].prestacao = await funcAlterar.somar(ass[proxParc].juros, ass[proxParc].amortizacao)
-    /* FIM - atualizando parcela atual. PARCELA ATUAL*/
+
+    for (let i = 2; i < ass.length - 1; i++) {
+      /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
+      ass[i].dias = await funcAlterar.quantDias(ass[atualParc].vencimento, ass[i].vencimento)
+      ass[i].taxaMes = await funcAlterar.taxacal(dados.modelTaxa, ass[i].dias)
+      ass[i].juros = await funcAlterar.juros(ass[atualParc].saldo, ass[i].taxaMes)
+      ass[i].prestacao = await funcAlterar.somar(ass[i].juros, ass[i].amortizacao)
+      /* FIM - atualizando parcela atual. PARCELA ATUAL*/
+      atualParc++
+
+    }
+
 
 
 
@@ -72,7 +71,7 @@ class id {
 
 
 
-    res.json(ass[atualParc])
+    res.json('ass')
 
 
   }
