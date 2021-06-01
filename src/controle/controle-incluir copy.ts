@@ -6,7 +6,7 @@ import erro from '../funcoes/erro'
 let teste = 'ij'
 const funcc =Userdata
 const funca =func.routes
-console.log(Userdata)
+//console.log(Userdata)
 
 class controleRota {
   async post(req, res) {

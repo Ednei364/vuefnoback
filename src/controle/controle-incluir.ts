@@ -13,9 +13,12 @@ class controleRota {
 
     let result = await erro.verifica(requisicao)
     if (typeof (result) === 'string') return res.status(400).json({ message: 'Contrato não incluso: ' + result })
-    //if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado' })
+    if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado' })
+    const contratos = await Userdata.find({})
+    console.log((contratos).length)
+
     let schema_contrato = {
-      _id:5,
+      _id: (contratos).length + 1,
       modelContrato: requisicao.contrato,
       modelEmpresa: requisicao.empresa,
       modelValorFinanciado: requisicao.valorFinanciado,
@@ -45,17 +48,16 @@ class controleRota {
       requisicao = await funca.prestcal(requisicao)
       requisicao = await funca.saldocal(requisicao)
       let arr = {}
+      requisicao._id = i
       arr = requisicao
       await Userdata.findOneAndUpdate({
         modelContrato: requisicao.contrato
       }, {
-       // _id:i,
         $push: {
           prestacoesContrato: arr
         }
       })
     }
-    console.log('5565656565656565')
     return res.status(200).json({
       message: 'Contrato incluso com sucesso'
     })

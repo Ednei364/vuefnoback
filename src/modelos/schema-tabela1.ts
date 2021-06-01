@@ -17,7 +17,7 @@ const Userdatacopy = new Schema(
     modelTaxa: String,
     prestacoesContrato: [
       {
-        //{type:Number,unique: true},
+        _id: Number,//{type:Number,unique: true},
         empresa: { type: String, required: false, },
         dias: { type: String, required: false, },
         taxaMes: { type: String, required: false, },
