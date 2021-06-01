@@ -28,9 +28,6 @@ class raiza {
       ass = userdata.prestacoesContrato
     })
 
-
-
-
     for (let i = req.body.i - 1; i < ass.length; i++) {
       await Userdata.findOneAndUpdate({
         modelContrato: req.body.contrato
@@ -52,7 +49,7 @@ class raiza {
       // requisicao = await funca.taxacal(requisicao)
       // requisicao = await funca.prestcal(requisicao)
       // requisicao = await funca.saldocal(requisicao)
-      let arr ={
+      let arr = {
         // _id: 60af0370a791ab0f30714a02,
         empresa: 'viseraaaaaaaaaaaaaaia',
         amortizacao: '98.6aaaaaaaaaaaaaaaaaaaaaaaaaaa43,22',
@@ -65,8 +62,8 @@ class raiza {
         saldo: '690.5sssssss02,56',
         prestacao: '10sssssssssssss0.589,47'
       }
-      
-     // arr = requisicao
+
+      // arr = requisicao
 
       await Userdata.findOneAndUpdate({
         modelContrato: req.body.contrato

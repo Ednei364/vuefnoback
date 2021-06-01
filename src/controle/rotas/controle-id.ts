@@ -31,6 +31,7 @@ class id {
       dados = userdata
       ass = userdata.prestacoesContrato// retorna meu array do banco e atribui nesta let
     })
+    console.log(ass[req.body_id])
 
 
     /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
