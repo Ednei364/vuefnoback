@@ -1,29 +1,22 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-const counterSchema = new Schema(
-  {
+var CounterSchema = new mongoose.Schema({
   _id: {type: String, required: true},
   seq: { type: Number, default: 0 }
-  }
-);
+});
+var counter = mongoose.model('counter', CounterSchema);
 
-counterSchema.index({ _id: 1, seq: 1 }, { unique: true })
+var entitySchema = mongoose.Schema({
+  sort: {type: String}
+});
 
-const counterModel = mongoose.model('counter', counterSchema);
-
-const autoIncrementModelID = function (modelName, doc, next) {
-  counterModel.findByIdAndUpdate(        // ** Method call begins **
-    modelName,                           // The ID to find for in counters model
-    { $inc: { seq: 1 } },                // The update
-    { new: true, upsert: true },         // The options
-    function(error, counter) {           // The callback
-      if(error) return next(error);
-
-      doc.id = counter.seq;
+entitySchema.pre('save', function(next) {
+  var doc = this;
+  counter.findByIdAndUpdateAsync({_id: 'entityId'}, {$inc: { seq: 1} }, {new: true, upsert: true}).then(function(count) {
+      console.log("...count: "+JSON.stringify(count));
+      doc.sort = count.seq;
       next();
-    }
-  );                                     // ** Method call ends **
-}
-
-module.exports = autoIncrementModelID;
+  })
+  .catch(function(error) {
+      console.error("counter error-> : "+error);
+      throw error;
+  });
+});

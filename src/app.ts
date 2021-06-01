@@ -4,6 +4,10 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import rotas from './rotas/rotas' // todas as rotas sendo tratada
+// Cria o Id do objeto na memória 
+const id = new mongoose.Types.ObjectId ();
+// Obter timestamp 
+console.log (id);
 
 class App {
   express: express.Application

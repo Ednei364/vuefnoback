@@ -14,8 +14,9 @@ class controleRota {
     let result = await erro.verifica(requisicao)
     if (typeof (result) === 'string') return res.status(400).json({ message: 'Contrato não incluso: ' + result })
     //if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado' })
-    
+
     let schema_contrato = {
+      _id:'5',
       modelContrato: requisicao.contrato,
       modelEmpresa: requisicao.empresa,
       modelValorFinanciado: requisicao.valorFinanciado,
@@ -49,6 +50,7 @@ class controleRota {
       await Userdata.findOneAndUpdate({
         modelContrato: requisicao.contrato
       }, {
+        _id:i,
         $push: {
           prestacoesContrato: arr
         }
