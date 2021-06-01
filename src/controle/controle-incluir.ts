@@ -39,6 +39,7 @@ class controleRota {
     await Userdata.create(schema_contrato)
 
     for (let i = 0; i < requisicao.quantParc; i++) {
+      requisicao._id = i
       requisicao = await funca.diasDaUltimaParcela(requisicao)
       requisicao = await funca.taxaDoMesProporcional(requisicao)
       requisicao = await funca.DataDoPagamento(requisicao)
@@ -47,8 +48,7 @@ class controleRota {
       requisicao = await funca.taxacal(requisicao)
       requisicao = await funca.prestcal(requisicao)
       requisicao = await funca.saldocal(requisicao)
-      let arr = {}
-      requisicao._id = i
+      let arr = {}     
       arr = requisicao
       await Userdata.findOneAndUpdate({
         modelContrato: requisicao.contrato
