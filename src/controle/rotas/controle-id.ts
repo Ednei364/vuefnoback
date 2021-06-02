@@ -11,12 +11,17 @@ class id {
   Retorna todos os contrato com suas parcelas
   */
   public async get(req, res) {
-    Userdata.findById(req.params.id, (error, userdata) => {
-      if (error) {
-        res.send(`Erro ao localizar Contrato..: ${error}`)
-      }
-      res.json(userdata)
-    })
+    try {
+      Userdata.findById(req.params.id, (error, userdata) => {
+        if (error) {
+          res.send(`Erro ao localizar Contrato..: ${error}`)
+        }
+        res.json(userdata)
+      })
+    }
+    catch (err) {
+      return res.status(500).send({ err: 'Erro ao buscar o contrato!!' })
+    }
   }
   /* 
   Altera a parcela atual e a proxima parcela apenas
@@ -67,7 +72,7 @@ class id {
     await Userdata.findOneAndUpdate({
       modelContrato: dados.modelContrato// req.body.contrato//// procuro este contrato
     }, {
-      prestacoesContrato: ass// e nesta propriedade atualizo com o array que usei local
+      prestacoesContrato: ass
     })
 
 
@@ -78,20 +83,18 @@ class id {
   }
 
   public async delete(req, res) {
-    await Userdata.find({}).remove()
-    //contratos.remove()
-    // Userdata.findById(req.params.id, (error, userdata) => {
-    //   if (error) {
-    //     res.send(`Erro ao localizar Contrato..: ${error}`)
-    //   }
-      
-    //  // deleteModel()
-    //   //delete(id),
-    //   res.json('userdata')
-    // })
-
-    res.json('userdata')
-
+    try {
+      Userdata.findById(req.params.id, (error, userdata) => {
+        if (error) {
+          res.send(`Erro ao localizar Contrato..: ${error}`)
+        }
+        userdata.remove()
+        res.status(200).send('Contrato excluiido com sucesso')
+      })
+    }
+    catch (err) {
+      return res.status(500).send({ err: 'Erro ao buscar o contrato para deletar!!' })
+    }
   }
 }
 
