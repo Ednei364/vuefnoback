@@ -26,6 +26,7 @@ class controleRota {
       modelAmort: requisicao.amortizacao,
       modelJuros: requisicao.juros,
       modelTaxa: requisicao.taxa,
+      modelDatadoCred:requisicao.datadocred,
       prestacoesContrato: []
     }
 

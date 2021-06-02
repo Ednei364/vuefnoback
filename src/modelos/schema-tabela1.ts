@@ -11,6 +11,7 @@ const Userdatacopy = new Schema(
     modelValorFinanciado: String,
     modelBanco: String,
     modelModelo: String,
+    modelDatadoCred: String,
     modelBase: String,
     modelAmort: String,
     modelJuros: String,

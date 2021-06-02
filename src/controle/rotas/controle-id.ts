@@ -31,9 +31,9 @@ class id {
       dados = userdata
       ass = userdata.prestacoesContrato// retorna meu array do banco e atribui nesta let
     })
-    let antParc = 0
-    let atualParc = 1
-    let proxParc = 1
+
+    let atualParc = req.body._id + 1
+    let antParc = atualParc === 1 ? dados.datadocred : atualParc - 1
 
     /* INICIO - atualizando parcela atual. PARCELA ATUAL*/
 
