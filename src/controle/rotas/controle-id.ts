@@ -2,8 +2,8 @@
 
 import Userdata from '../../modelos/schema-tabela1' // esquema do banco de dados
 import func from '../../funcoes/funcAlterar'
-import erro from '../../funcoes/erro'
-import { deleteModel } from 'mongoose'
+//import erro from '../../funcoes/erro'
+
 const funcAlterar = func.routes
 
 class id {
@@ -65,21 +65,12 @@ class id {
       atualParc++
 
     }
-
-
-
-
     await Userdata.findOneAndUpdate({
       modelContrato: dados.modelContrato// req.body.contrato//// procuro este contrato
     }, {
       prestacoesContrato: ass
     })
-
-
-
-    res.json('ass')
-
-
+   res.json('ass')
   }
 
   public async delete(req, res) {
