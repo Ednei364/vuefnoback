@@ -1,6 +1,6 @@
 'use strict'
 
-import Userdata from '../modelos/schema-tabela1'
+import Userdata from '../modelos/schema-tabela'
 import func from '../funcoes/func'
 import erro from '../funcoes/erro'
 

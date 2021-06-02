@@ -1,6 +1,6 @@
 'use strict'
 
-import Userdata from '../../modelos/schema-tabela1' // esquema do banco de dados
+import Userdata from '../../modelos/schema-tabela' // esquema do banco de dados
 import func from '../../funcoes/funcAlterar'
 //import erro from '../../funcoes/erro'
 
