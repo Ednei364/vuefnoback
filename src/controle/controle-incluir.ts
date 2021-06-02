@@ -16,7 +16,7 @@ class controleRota {
     if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado anteriormente' })
     const contratos = await Userdata.find({})//retorna todos os contratos já lançados
     let schema_contrato = {
-      _id: (contratos).length + 1,
+      _id: contratos[contratos.length - 1]._id + 1,
       modelContrato: requisicao.contrato,
       modelEmpresa: requisicao.empresa,
       modelValorFinanciado: requisicao.valorFinanciado,
@@ -46,7 +46,7 @@ class controleRota {
       requisicao = await funca.taxacal(requisicao)
       requisicao = await funca.prestcal(requisicao)
       requisicao = await funca.saldocal(requisicao)
-      let arr = {}     
+      let arr = {}
       arr = requisicao
       await Userdata.findOneAndUpdate({
         modelContrato: requisicao.contrato

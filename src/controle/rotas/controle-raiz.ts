@@ -9,8 +9,11 @@ class raiza {
   public async get(req, res) {
     try {
       const contratos = await Userdata.find({})
-      console.log((contratos[0].prestacoesContrato).length)//[0])
-      return res.send(contratos)
+     // console.log((contratos[contratos.length].prestacoesContrato).length)//[0])
+      return res.status(200).send({
+        quantidades: contratos.length,
+        contratos
+      })
     }
     catch (err) {
       return res.status(500).send({ err: 'Erro ao buscar todos os contratos!!' })
