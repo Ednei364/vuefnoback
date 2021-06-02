@@ -12,6 +12,7 @@ router.post('/', controleRota.post);
 //Pela raiz 
 router.get('/', cont_raiz.get);
 router.put('/', cont_raiz.put);
+router.delete('/', cont_raiz.delete);
 
 //pelo ID
 router.get('/:id', cont_id.get);

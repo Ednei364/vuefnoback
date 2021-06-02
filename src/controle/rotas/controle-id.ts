@@ -3,6 +3,7 @@
 import Userdata from '../../modelos/schema-tabela1' // esquema do banco de dados
 import func from '../../funcoes/funcAlterar'
 import erro from '../../funcoes/erro'
+import { deleteModel } from 'mongoose'
 const funcAlterar = func.routes
 
 class id {
@@ -77,9 +78,19 @@ class id {
   }
 
   public async delete(req, res) {
+    await Userdata.find({}).remove()
+    //contratos.remove()
+    // Userdata.findById(req.params.id, (error, userdata) => {
+    //   if (error) {
+    //     res.send(`Erro ao localizar Contrato..: ${error}`)
+    //   }
+      
+    //  // deleteModel()
+    //   //delete(id),
+    //   res.json('userdata')
+    // })
 
-
-
+    res.json('userdata')
 
   }
 }

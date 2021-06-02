@@ -15,8 +15,9 @@ class controleRota {
     if (typeof (result) === 'string') return res.status(400).json({ message: 'Contrato não incluso: ' + result })
     if (await Userdata.findOne({ modelContrato })) return res.status(400).send({ message: ' Contrato já cadastrado anteriormente' })
     const contratos = await Userdata.find({})//retorna todos os contratos já lançados
+    console.log(contratos.length)
     let schema_contrato = {
-      _id: contratos[contratos.length - 1]._id + 1,
+      _id: contratos.length === 0 ? 0 : contratos[contratos.length - 1]._id + 1,
       modelContrato: requisicao.contrato,
       modelEmpresa: requisicao.empresa,
       modelValorFinanciado: requisicao.valorFinanciado,
@@ -26,7 +27,7 @@ class controleRota {
       modelAmort: requisicao.amortizacao,
       modelJuros: requisicao.juros,
       modelTaxa: requisicao.taxa,
-      modelDatadoCred:requisicao.datadocred,
+      modelDatadoCred: requisicao.datadocred,
       prestacoesContrato: []
     }
 

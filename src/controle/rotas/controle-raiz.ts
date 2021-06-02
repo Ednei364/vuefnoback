@@ -6,10 +6,10 @@ import erro from '../../funcoes/erro'
 const funca = func.routes
 
 class raiza {
+  /* Retorna todos os contratos*/
   public async get(req, res) {
     try {
       const contratos = await Userdata.find({})
-     // console.log((contratos[contratos.length].prestacoesContrato).length)//[0])
       return res.status(200).send({
         quantidades: contratos.length,
         contratos
@@ -76,27 +76,21 @@ class raiza {
         }
       })
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     res.json('contratos')
 
   }
+  public async delete(req, res) {
+    try {
+      await Userdata.find({}).remove()
+      res.status(200).json({
+        message: 'Todos os contratos deletado com sucesso',
+      })
+    }
+    catch (err) {
+      return res.status(500).send({ err: 'Erro ao buscar todos os contratos!!' })
+    }
 
+  }
 }
 
 export default new raiza()
