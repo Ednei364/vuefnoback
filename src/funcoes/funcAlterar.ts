@@ -51,7 +51,5 @@ class routes {
 
     return formataValor(resultado)
   }
-
-
 }
 export default { routes: new routes() }
